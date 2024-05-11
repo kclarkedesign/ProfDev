@@ -13,13 +13,13 @@ class MenuItem(models.Model):
     
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    MenuItem = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.SmallIntegerField()
     unit_price = models.DecimalField(max_digits=6, decimal_places=2)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     
     class Meta:
-        unique_together = ('menuitem', 'user')
+        unique_together = ('menu_item', 'user')
         
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -30,10 +30,10 @@ class Order(models.Model):
     
 class OrderItem(models.Model):
     order = models.ForeignKey(User, on_delete=models.CASCADE)
-    menuitem = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.SmallIntegerField()
     unit_price = models.DecimalField(max_digits=6, decimal_places=2)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     
     class Meta:
-        unique_together = ('order', 'menuitem')
+        unique_together = ('order', 'menu_item')
