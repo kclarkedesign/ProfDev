@@ -1,18 +1,28 @@
 from rest_framework import serializers
+from django.contrib.auth.models import Group, User
 from .models import Category, MenuItem, Cart, Order, OrderItem
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email',]
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['id', "name"]
+        
 class CategorySerializer (serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id','title']
+        fields = ['id','slug', 'title']
         
 class MenuItemSerializer (serializers.ModelSerializer):
-    category_id = serializers.IntegerField(write_only=True)
-    category = CategorySerializer(read_only=True)
+    category = CategorySerializer()
     
     class Meta:
             model = MenuItem
-            fields = ['id', 'title', 'price', 'featured', 'category', 'category_id']
+            fields = ['id', 'title', 'price', 'featured', 'category']
     
 
 class CartSerializer (serializers.ModelSerializer):
