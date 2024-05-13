@@ -5,8 +5,12 @@ class Category(models.Model):
     slug = models.SlugField()
     title = models.CharField(max_length=255, db_index=True)
     
+    class Meta:
+        verbose_name_plural = 'Categories'
+    
     def __str__(self) -> str:
         return self.title
+    
     
 class MenuItem(models.Model):
     title = models.CharField(max_length=255, db_index=True)
@@ -26,6 +30,9 @@ class Cart(models.Model):
     
     class Meta:
         unique_together = ('menu_item', 'user')
+    
+    def __str__(self):
+        return self.user
         
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -34,8 +41,11 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=6, decimal_places=2)
     date = models.DateField(db_index=True)
     
+    def __str__(self) -> str:
+        return str(self.id)
+    
 class OrderItem(models.Model):
-    order = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.SmallIntegerField()
     unit_price = models.DecimalField(max_digits=6, decimal_places=2)
@@ -43,3 +53,6 @@ class OrderItem(models.Model):
     
     class Meta:
         unique_together = ('order', 'menu_item')
+        
+    def __str__(self) -> str:
+        return str(self.menu_item.title) + " x " + str(self.quantity)

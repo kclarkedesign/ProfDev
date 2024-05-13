@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 from rest_framework.authtoken.views import obtain_auth_token
 
@@ -21,9 +21,9 @@ urlpatterns = [
     path('category/<int:pk>', views.SingleMenuItemView.as_view()),
    
     # Cart management endpoints 
-    path('cart/menu-items', views.CartView.as_view()),
+    path('cart/menu-items/', views.CartView.as_view()),
     
     # Order management endpoints
-    #path('orders', views.OrderView.as_view()),
-    #path('orders<int:pk>', views.OrderView.as_view()),
+    path('orders/', views.OrderView.as_view()),
+    path('orders/<int:pk>', views.SingleOrderView.as_view()),
 ]
