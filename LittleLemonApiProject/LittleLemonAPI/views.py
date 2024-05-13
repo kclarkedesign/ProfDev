@@ -9,6 +9,7 @@ from .models import Category, MenuItem, Cart, Order, OrderItem
 from .serializers import UserSerializer, GroupSerializer, MenuItemSerializer, CategorySerializer, CartSerializer, OrderSerializer
 from .permissions import IsManagerGroup, IsDeliveryCrewGroup
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 # Menu-items 
 class MenuItemsView(generics.ListCreateAPIView):
@@ -17,6 +18,7 @@ class MenuItemsView(generics.ListCreateAPIView):
     ordering_fields = ['price', 'category']
     filterset_fields = ['price', 'inventory']
     search_fields = ['category']
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
     
     def get_permissions(self):        
         if self.request.method != 'GET':
@@ -30,6 +32,7 @@ class MenuItemsView(generics.ListCreateAPIView):
 class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
     
     def get_permissions(self):
         if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
@@ -147,8 +150,8 @@ class CartView(generics.ListCreateAPIView):
 
 # for Order management endpoints
 class OrderView(generics.ListCreateAPIView):
-    
     serializer_class = OrderSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
     
     def get_queryset(self):
         if self.request.user.groups.filter(name='Manager').exists() or self.request.user.is_superuser == True :
@@ -178,6 +181,7 @@ class OrderView(generics.ListCreateAPIView):
 class SingleOrderView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
     
     def get_object(self):
         order = get_object_or_404(Order, pk=self.kwargs['pk'])
