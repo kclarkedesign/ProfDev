@@ -60,7 +60,7 @@ class ManagerGroupView(generics.ListCreateAPIView):
     def get_queryset(self):
         return User.objects.filter(groups__name='Manager')
     
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         # Assign user to managers group
         username = request.data['username']
         if username:
@@ -91,7 +91,7 @@ class DeliveryCrewGroupView(generics.ListCreateAPIView):
     def get_queryset(self):
         return User.objects.filter(groups__name='Delivery Crew')
     
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         username = request.data['username']
         if username:
             user = get_object_or_404(User, username=username)
