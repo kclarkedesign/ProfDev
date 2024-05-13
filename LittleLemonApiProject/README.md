@@ -1,3 +1,24 @@
+Endpoints:
+
+/api/users
+/auth/users/me/
+/token/login/
+
+/api/menu-items/
+/api/menu-items/{menuItem}
+
+/api/groups/manager/users/
+/api/groups/manager/users/{userId}
+
+/api/groups/delivery-crew/users/
+/api/groups/delivery-crew/users/{userId}
+
+/api/cart/menu-items/
+
+/api/orders/
+/api/orders/{orderId}
+
+
 ##Grading Criteria Overview
 When you submit your assignment, other learners in the course will review and grade your work. These are the criteria they’ll use to evaluate your APIs.
 
