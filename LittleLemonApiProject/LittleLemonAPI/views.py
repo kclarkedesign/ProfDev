@@ -202,14 +202,15 @@ class SingleOrderView(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request, *args, **kwargs):
         order = self.get_object()
         if request.user.groups.filter(name='Manager').exists() or request.user.is_superuser:
-            return self.update(request, *args, **kwargs)
+            self.update(request, *args, **kwargs)
+            return Response({'message': 'Order updated'}, status=status.HTTP_200_OK) 
         return Response({'message': 'Not authorized to fully update this order.'}, status=status.HTTP_403_FORBIDDEN)
     
     def delete(self, request, *args, **kwargs):
         order = self.get_object()
         if request.user.groups.filter(name='Manager').exists() or request.user.is_superuser:
             self.destroy(request, *args, **kwargs)
-            return Response({'message': 'Order deleted'}, status=status.HTTP_200_OK) 
+            return Response({'message': 'Order deleted'}, status=status.HTTP_204_OK) 
         
         return Response({'message': 'Not authorized to delete this order.'}, status=status.HTTP_403_FORBIDDEN)
         
