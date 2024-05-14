@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7hr3$1vqj63dc-gd_g3x^2h47_^m3+l5yxww-n037pn$01^_m5'
+SECRET_KEY = 'django-insecure-ud0!b!yjhixx))%(^uly@gu(_t(k2oc570%x*j7c7&z=r@*$2b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -128,40 +127,34 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_RENDERER_CLASSES': [
-    #     'rest_framework.renderers.JSONRenderer',
-    #     'rest_framework.renderers.BrowsableAPIRenderer',
-    #     'rest_framework.renderers.XMLRenderer',
-    # ],
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.SearchFilter',
-        'rest_framework.filters.OrderingFilter',
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ],
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle'
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES' : [
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
+        'rest_framework.authentication.SessionAuthentication',
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
+        "rest_framework.permissions.DjangoModelPermissions",
     ],
-    "DEFAULT_FILTER_BACKENDS": [
-        "rest_framework.filters.OrderingFilter",
-        "rest_framework.filters.SearchFilter",
+    'DEFAULT_FILTER_BACKENDS': [
+        'rest_framework.filters.OrderingFilter',
+        'rest_framework.filters.SearchFilter',
     ],
-    "DEFAULT_THOR"
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 6,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 3,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '10/minute',
-        'user': '50/minute'
+        'anon': '2/minute',
+        'user': '10/minute',
     }
 }
 
 DJOSER = {
-    "USER_ID_FIELD": "username"
+    'USER_ID_FIELD': 'username'
 }

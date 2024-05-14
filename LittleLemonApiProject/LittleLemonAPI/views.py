@@ -16,8 +16,8 @@ class MenuItemsView(generics.ListCreateAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
     ordering_fields = ['price', 'category']
-    filterset_fields = ['price', 'inventory']
-    search_fields = ['category']
+    # filterset_fields = ['price', 'inventory']
+    search_fields = ['category__title']
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     
     def get_permissions(self):        

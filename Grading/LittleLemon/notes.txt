@@ -1,0 +1,14 @@
+Superuser:
+username: admin
+password: lemon@123
+
+Users:
+Manager1
+Delivery1
+Customer1
+
+Users password: lemon@123
+
+
+kclarke
+lemon@123
