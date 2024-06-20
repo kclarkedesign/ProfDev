@@ -1,0 +1,15 @@
+pipenv shell
+pipenv install mysqlclient or brew install mysql-client
+pipenv install django
+
+
+CREATE USER 'root'@'127.0.0.1' IDENTIFIED BY 'root@123';
+GRANT ALL ON *.* TO 'root'@'127.0.0.1';
+FLUSH PRIVILEGES;
+exit
+
+mysql.server start
+
+mysql.server stop
+
+mysql.server restart
