@@ -1,4 +1,8 @@
-pipenv shell
+pip install django
+django-admin startproject projectname
+cd projectname
+
+pipenv shell (this creates the pipfile)
 pipenv install mysqlclient or brew install mysql-client
 pipenv install django
 
